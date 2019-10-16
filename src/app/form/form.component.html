@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="col-lg-12">
+    <div class="row">
+      <div class="col-lg-6 mx-auto">
+        <div class="card card-body mt-4">
+          <h4 class="my-3 text-center text-primary">Add User</h4>
+          <form [formGroup]="myFrom" (ngSubmit)="submitForm()">
+            <div class="form-group">
+              <label for="UserName"><small>User Name:</small></label>
+              <input formControlName="userName" id="UserName" type="text" placeholder="Enter user name"
+                class="form-control" />
+              <div *ngIf="userName.touched && !userName.valid">
+                <p *ngIf="userName.errors.required" class="text-danger">Enter user name</p>
+                <p *ngIf="userName.errors.minlength" class="text-danger">User name should contain 5 chars</p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="Email"><small>Email:</small></label>
+              <input formControlName="email" id="Email" type="text" placeholder="Enter email" class="form-control" />
+              <div *ngIf="email.touched && !email.valid">
+                <p *ngIf="email.errors.required" class="text-danger">Enter email</p>
+                <p *ngIf="email.errors.email" class="text-danger">Should contain @ symbol</p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="Phone"><small>Phone Number:</small></label>
+              <input formControlName="phone" id="Phone" type="text" placeholder="Enter number" class="form-control" />
+              <div *ngIf="phone.touched && !phone.valid">
+                <p *ngIf="phone.errors.required" class="text-danger">Enter phone number</p>
+                <p *ngIf="phone.errors.pattern" class="text-danger">Should contain only numbers</p>
+                <p *ngIf="phone.errors.minlength" class="text-danger">number should be min 10 </p>
+                <p *ngIf="phone.errors.maxlength" class="text-danger">number should be max 10 </p>
+              </div>
+            </div>
+            <button *ngIf="!enableEdit" [disabled]="myFrom.invalid" class="btn btn-sm btn-success">SUBMIT</button>
+            <button *ngIf="enableEdit" [disabled]="myFrom.invalid" class="btn btn-sm btn-primary">UPDATE</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
