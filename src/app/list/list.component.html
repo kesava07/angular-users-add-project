@@ -1,12 +1,12 @@
 <div class="container mt-5">
   <div class="col-lg-8 mx-auto">
     <div class="card card-body">
-
+      <h4 class="text-center mb-3">Users <a routerLink="/" class="btn btn-sm btn-primary float-right">Add user</a>
+      </h4>
+      <input #searchInput type="search" placeholder="search.." class="form-control mb-3"
+        (change)="handleSearchData()" />
       <p *ngIf="users.length == 0" class="text-center my-5 text-danger"> No users found</p>
       <div *ngIf="users.length >0">
-        <h4 class="text-center mb-3">Users <a routerLink="/" class="btn btn-sm btn-primary float-right">Add user</a>
-        </h4>
-        <input #searchInput type="search" placeholder="search.." class="form-control mb-3" (change)="handleSearchData()" />
         <table class="table table-bordered">
           <thead>
             <tr>

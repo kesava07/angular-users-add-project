@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { DataService } from '../myService/data.service';
 import { UserModel } from '../form.model';
 import { Router } from '@angular/router';
@@ -10,9 +10,10 @@ import { Router } from '@angular/router';
 })
 export class ListComponent implements OnInit {
 
-  @ViewChild("searchInput", { static: false }) searchInput;
+  @ViewChild("searchInput", { static: false }) searchInput: ElementRef;
 
-  users: UserModel[] = [];
+  users: UserModel[];
+  searchedUsers: UserModel[];
 
   constructor(private userService: DataService, private router: Router) { }
 
@@ -29,7 +30,18 @@ export class ListComponent implements OnInit {
   }
 
   handleSearchData() {
-    console.log(this.searchInput.nativeElement.value)
+
+    if (this.searchInput.nativeElement.value !== '') {
+      let regex = new RegExp(this.searchInput.nativeElement.value);
+      const copyUsers = [...this.users];
+      this.users = copyUsers.filter((val) => {
+        if (val && val.userName.match(regex)) {
+          return val;
+        }
+      });
+    } else {
+      this.users = this.userService.getUsers();
+    }
   }
 
 }

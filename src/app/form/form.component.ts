@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DataService } from '../myService/data.service';
 import { Router } from '@angular/router';
@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css']
 })
-export class FormComponent implements OnInit {
+export class FormComponent implements OnInit, OnDestroy {
   myFrom;
   dataToEdit;
   enableEdit = false;
@@ -60,6 +60,11 @@ export class FormComponent implements OnInit {
       this.userService.updateUser(index, this.myFrom.value)
       this.router.navigate(['/list']);
     }
+  }
+
+  ngOnDestroy() {
+    this.userService.editUser(undefined , -1)
+    this.enableEdit = false;
   }
 
 }
